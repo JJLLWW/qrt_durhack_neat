@@ -1,2 +1,4 @@
 .idea
 venv
+src/cli_log
+cli_log

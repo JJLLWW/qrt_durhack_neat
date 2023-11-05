@@ -1,6 +1,6 @@
 import pandas as pd
 import logging
-from format_helpers import *
+from .format_helpers import *
 
 class LogLoader():
     """ Loader class for reading log files """
@@ -17,13 +17,16 @@ class LogLoader():
             log_file.close()
 
     def load_log_snapshot(self, log_path: str):
-        pd.DataFrame()
+        snapshot_df = pd.DataFrame(columns=['Timestamp', 'Status', 'Message'])
         with open(log_path) as log_file:
             for line in log_file:
                 if is_exchange_timing_preamble(line):
-                    parse_exchange_timing_snapshot(log_file)
+                    break
+                    # parse_exchange_timing_snapshot(log_file)
                 else:
-                    parse_single_line_entry(line)
+                    line_df = parse_single_line_entry(line)
+                    snapshot_df = pd.concat([snapshot_df, line_df]) # bit awful
+
         return None
 
     def load_real_time_log(self, log_path: str):
