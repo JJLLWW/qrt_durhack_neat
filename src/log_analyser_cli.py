@@ -2,13 +2,14 @@
 
 import logging
 from loader.loader import LogLoader
-
-# handling logging config can be quite elaborate
+from loader.parser import LogParser
 
 def main():
     logging.basicConfig(filename='cli_log', level=logging.DEBUG)
-    log_loader = LogLoader()
-    log_loader.load_log_snapshot('../data/frozen_output.log')
+    log_parser = LogParser()
+    with open("../data/frozen_output.log") as f:
+        entries = log_parser.parse_static_logfile(f)
+        print(entries)
 
 
 if __name__ == '__main__':
