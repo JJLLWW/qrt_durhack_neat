@@ -1,15 +1,22 @@
 #!/usr/bin/python3
 
 import logging
-from loader.loader import LogLoader
-from loader.parser import LogParser
+from art import text2art
+
+def help():
+    print("""
+> press q to quit
+> press p or something
+> 
+""")
+
 
 def main():
     logging.basicConfig(filename='cli_log', level=logging.DEBUG)
-    log_parser = LogParser()
-    with open("../data/frozen_output.log") as f:
-        entries = log_parser.parse_static_logfile(f)
-        print(entries)
+    print(text2art("Log Analyser"))
+    help()
+    while (line := input("log_analyser> ")) != 'q':
+        print(line)
 
 
 if __name__ == '__main__':

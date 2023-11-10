@@ -53,4 +53,3 @@ class LogParser:
                     line = log_file.readline()
             entries.append(entry)
         return pd.DataFrame([entry.as_dict() for entry in entries])
-
