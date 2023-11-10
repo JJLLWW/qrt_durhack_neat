@@ -2,11 +2,17 @@ import pandas as pd
 
 from typing import TextIO
 import time
+import asyncio
 
 from .parser import LogParser
 from .entry import LogEntry
 
 
+# nice apparently async/await are in 3.5+, determines coroutine (they aren't actually parallelised)
+# asyncio in stdlib? https://www.twilio.com/blog/working-with-files-asynchronously-in-python-using-aiofiles-and-asyncio
+# asyncio has StreamReader class
+# probably better to use aiofiles
+# main needs to be wrapped in asyncio.run(main())
 class RealTimeLogManager:
     """ manages files open for real time reading """
     def __init__(self):
@@ -29,7 +35,7 @@ class RealTimeLogManager:
                     self.log_entries[log_key][-1].message += line
 
     def poll_all_files(self):
-        # ideally want to run this thing in its own thread as an event loop
+        # surely there's some way to do this asynchronously
         while True:
             time.sleep(0.1)
             self.poll_all_files_once()
