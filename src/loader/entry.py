@@ -10,6 +10,12 @@ class LogEntry:
     def __str__(self):
         return "[" + str(self.timestamp) + ", " + self.status + ", " + self.message + "]"
 
+    def __repr__(self):
+        return f"LogEntry({self.timestamp}, {self.status}, {self.message})"
+
+    def __eq__(self, other):
+        return self.as_dict() == other.as_dict()
+
     def as_dict(self):
         return {
             'Timestamp': self.timestamp,

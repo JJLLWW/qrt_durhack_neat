@@ -7,9 +7,10 @@ import logging
 from .entry import LogEntry
 
 
+# TextIO can be a file or also some StringReader equivalent so not locked in to a file.
 class LogParser:
     default_line_regex = r"^(?P<timestamp>\d{2}-\d{2}-\d{4} \d{2}:\d{2}:\d{2}.\d+) (?P<status>\w+:) (?P<message>.*)$"
-    default_timestamp_format = "%m-%d-%Y %H:%M:%S.%f"
+    default_timestamp_format = "%d-%m-%Y %H:%M:%S.%f"
 
     def __init__(self, line_regex: str = default_line_regex, timestamp_format: str = default_timestamp_format):
         self.logger = logging.getLogger(__name__)
@@ -35,7 +36,7 @@ class LogParser:
             raise ValueError("unable to parse input line")
         return LogEntry(
             timestamp=self.__convert_timestamp(match.group('timestamp')),
-            status=match.group('status'),
+            status=match.group('status').strip(':'),
             message=match.group('message')
         )
 

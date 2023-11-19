@@ -1,4 +1,3 @@
-import pandas as pd
 import logging
 from .parser import LogParser
 from .real_time import RealTimeLogManager
