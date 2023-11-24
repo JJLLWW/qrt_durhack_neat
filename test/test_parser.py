@@ -8,7 +8,7 @@ from ..src.loader.parser import *
 # possible to run pytest from within pycharm
 # https://www.jetbrains.com/help/pycharm/run-debug-configuration-py-test.html
 
-# surely this should be within a file
+# TODO: remember to put this in a file
 multiline1 = """04-11-2023 12:36:16.542765000 INFO: 
 Exchange order message timing output
   Exchange            Order recv nu  X (us)
@@ -39,6 +39,11 @@ Exchange order message timing output
     Knight  additional_info   18624    1303
 """
 
+
+def strip_first_line(s: str) -> str:
+    return '\n'.join(s.split('\n')[1:])
+
+
 def test_parser_one_line_success():
     log_parser = LogParser()
     # check if a blank line will cause problems - believe it does
@@ -56,7 +61,14 @@ def test_parser_one_line_success():
 
 def test_parser_complex_success():
     log_parser = LogParser()
-    log_parser.parse_static_logfile(StringIO(multiline1))
+    inputs = [
+        multiline1
+    ]
+    expected = [
+        LogEntry(timestamp=datetime(2023, 11, 4, 12, 36, 16, 542765), status="INFO", message=strip_first_line(multiline1))
+    ]
+    actual = [log_parser.parse_static_logfile(StringIO(lines)) for lines in inputs]
+    assert actual == expected
 
 
 def test_parser_failure_1():
@@ -68,3 +80,11 @@ def test_parser_failure_1():
     for line in inputs:
         with pytest.raises(Exception) as e_info:
             log_parser.parse_log_entry_head(line)
+
+
+def test_check_multiline():
+    log_parser = LogParser()
+    msg = "this\n is\n multiline\n"
+    line = f"04-11-2023 12:36:15.739592000 DEBUG: {msg}"
+    val = log_parser.parse_log_entry_head(line)
+    assert val.message == msg
