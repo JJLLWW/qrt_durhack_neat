@@ -1,24 +1,4 @@
-from datetime import datetime
+from collections import namedtuple
 
-
-class LogEntry:
-    def __init__(self, timestamp: datetime, status: str, message: str):
-        self.timestamp = timestamp
-        self.status = status
-        self.message = message
-
-    def __str__(self):
-        return "[" + str(self.timestamp) + ", " + self.status + ", " + self.message + "]"
-
-    def __repr__(self):
-        return f"LogEntry({self.timestamp}, {self.status}, {self.message})"
-
-    def __eq__(self, other):
-        return self.as_dict() == other.as_dict()
-
-    def as_dict(self):
-        return {
-            'Timestamp': self.timestamp,
-            'Status': self.status,
-            'Message': self.message
-        }
+# this shouldn't be its own file
+LogEntry = namedtuple(typename="LogEntry", field_names=["timestamp", "status", "message"])
