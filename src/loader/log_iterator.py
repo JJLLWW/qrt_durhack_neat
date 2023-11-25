@@ -12,21 +12,23 @@ class LogIterator:
 
     def __init__(self, logfile: TextIO):
         self.logfile = logfile
-        self.cur_entry_head = None
+        self.entry_first_line = None
+        self.first_entry = True
         self.line_head_pattern = re.compile(LogIterator.line_head_regex)
 
     def __iter__(self):
         return self
 
     def __next__(self):
-        if self.cur_entry_head is None:
+        entry_lines = self.entry_first_line
+        if self.first_entry:
             entry_lines = next(self.logfile)
-            cur_line = entry_lines
-        else:
-            entry_lines = self.cur_entry_head
-            cur_line = next(self.logfile, None)
-        while self.__is_continuation_line(cur_line):
+            self.first_entry = False
+        elif self.entry_first_line is None:
+            raise StopIteration
+        while (cur_line := next(self.logfile, None)) is not None:
+            if not self.__is_continuation_line(cur_line):
+                break
             entry_lines += cur_line
-            cur_line = next(self.logfile, None)
-        self.cur_entry_head = cur_line
+        self.entry_first_line = cur_line
         return entry_lines
