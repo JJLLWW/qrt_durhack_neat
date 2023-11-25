@@ -1,6 +1,8 @@
 from ..src.datamodel.log_file import LogFile
 from ..src.loader.parser import LogParser
 
+import pandas as pd
+
 
 def test_log_file_single_thread():
     log_parser = LogParser()
@@ -17,3 +19,4 @@ def test_log_file_single_thread():
     for entry in entries:
         log_file.add_entry(entry)
     file_df = log_file.get_file_snapshot()
+    file_df.to_csv("frame.csv")
