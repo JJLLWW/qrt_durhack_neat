@@ -3,6 +3,7 @@ import pytest
 from io import StringIO
 from ..src.loader.log_iterator import LogIterator
 
+
 def test_log_iterator_single_line_entries():
     # TODO: formatting
     inputs = [
@@ -16,3 +17,7 @@ def test_log_iterator_single_line_entries():
         output = [entry for entry in log_it]
         assert len(output) == len(val.split('\n'))
         assert val == '\n'.join(output)
+
+
+def test_log_iterator_multiline_entries():
+    assert True

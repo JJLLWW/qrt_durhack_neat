@@ -6,6 +6,8 @@ class LogIterator:
     line_head_regex = r"^\d{2}-\d{2}-\d{4} \d{2}:\d{2}:\d{2}.\d+ \w+: .+$"
 
     def __is_continuation_line(self, line: str) -> bool:
+        if line is None:
+            return False
         return self.line_head_pattern.match(line) is None
 
     def __init__(self, logfile: TextIO):
@@ -22,9 +24,9 @@ class LogIterator:
             cur_line = entry_lines
         else:
             entry_lines = self.cur_entry_head
-            cur_line = next(self.logfile)
+            cur_line = next(self.logfile, None)
         while self.__is_continuation_line(cur_line):
             entry_lines += cur_line
-            cur_line = next(self.logfile)
+            cur_line = next(self.logfile, None)
         self.cur_entry_head = cur_line
         return entry_lines
