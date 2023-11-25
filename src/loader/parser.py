@@ -2,12 +2,13 @@ import re
 from datetime import datetime
 import logging
 
-import pandas
-
 from .entry import LogEntry
 
 
-# should also be able to interpret the exchange order info in some useful form
+# should also be able to interpret the exchange order info in some useful form.
+# is there any point to this being a class instead of a set of public/private functions
+# surely if the user wants to customise the line_regex etc they don't want to instantiate a separate
+# class
 class LogParser:
     default_line_regex = r"^(?P<timestamp>\d{2}-\d{2}-\d{4} \d{2}:\d{2}:\d{2}.\d+) (?P<status>\w+:) (?P<message>.*)$"
     default_timestamp_format = "%d-%m-%Y %H:%M:%S.%f"
@@ -40,7 +41,3 @@ class LogParser:
             status=match.group('status').strip(':'),
             message=match.group('message')
         )
-
-    # should this function go here
-    def parse_exchange_order_timing(self, as_text: str):
-        pass

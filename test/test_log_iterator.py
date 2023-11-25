@@ -1,5 +1,3 @@
-import pytest
-
 from io import StringIO
 from ..src.loader.log_iterator import LogIterator
 

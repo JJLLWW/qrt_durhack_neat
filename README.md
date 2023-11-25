@@ -24,3 +24,9 @@ Some of the things your analysis tool should do include:
 Extra points for making the application work via a web browser, any messaging system or some kind of fruit.
 
 Hidden within the log messages are lists of the QRT Team’s favourite movies. If you’ve implemented the features as described above then you should be able to spot these. There’s also three number sequences hidden in the output. The first team that can list all the movies and tell us what the number sequence is will win cool QRT merch!
+
+# Rough
+
+Parsed data format? (ignore exchange timing data for now)
+
+| timestamp | status | message |
