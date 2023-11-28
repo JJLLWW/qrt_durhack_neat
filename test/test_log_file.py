@@ -19,4 +19,4 @@ def test_log_file_single_thread():
     for entry in entries:
         log_file.add_entry(entry)
     file_df = log_file.get_file_snapshot()
-    file_df.to_csv("frame.csv")
+    file_df.to_csv("frame.csv") # this stores the index in the csv as well,
