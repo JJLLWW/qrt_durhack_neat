@@ -1,5 +1,5 @@
 # good proof of concept, is it possible to encapsulate any of this into a class?
-# now just actually get the lines somewhere else
+# converting lines to entries?
 import asyncio
 from collections import namedtuple
 
@@ -11,11 +11,17 @@ from watchfiles import awatch
 class FileObserver:
     def __init__(self, file: str):
         self.file = file
+        self.lines = []
 
     def update(self, line: str):
-        print(line)
+        self.lines.append(line)
+
+    def print_lines(self):
+        print(self.lines)
 
 
+# if its async anyway can't I move the log_generator logic here so its
+# only returning complete entries?
 async def file_coro(filename: str, observer: FileObserver):
     async with aiofiles.open(filename, mode='r') as f:
         while True:
@@ -44,6 +50,7 @@ class LogLoader:
                 case change.deleted:
                     if file in self.file_info:
                         self.file_info[file].task.cancel()
+                        self.file_info[file].observer.print_lines()
                         self.file_info.pop(file)
 
 

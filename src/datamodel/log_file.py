@@ -1,6 +1,10 @@
 import pandas as pd
+from collections import namedtuple
 
-from ..loader.entry import LogEntry
+LogEntry = namedtuple(
+    typename="LogEntry",
+    field_names=["timestamp", "status", "message", "statistics"]
+)
 
 
 class LogFile:

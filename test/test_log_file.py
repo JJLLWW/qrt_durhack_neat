@@ -1,5 +1,5 @@
-from ..src.datamodel.log_file import LogFile
-from ..src.loader.parser import LogParser
+from src.datamodel.log_file import LogFile
+from src.loader.log_parser import LogParser
 
 import pandas as pd
 

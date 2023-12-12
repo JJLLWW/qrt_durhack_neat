@@ -1,9 +1,9 @@
-timestamp,status,message
-2023-11-04 21:04:29.875730,DEBUG,Recreating message with new code NEWC-61803
-2023-11-04 21:04:29.875760,INFO,Starting processing of order [additional_info]
-2023-11-04 21:04:30.296400,OTHER,"Nature hides her secrets because of her essential loftiness, but not by means of ruse - Einstein, Albert"
-2023-11-04 21:04:30.296940,ERROR,Unable to find order ORD-398 sent to exchange (Rook)
-2023-11-04 21:04:30.297110,OTHER,"If you give a github repo in your CV make sure to have someone review the code, recruiters will look at the code"
-2023-11-04 21:04:30.297200,WARN,Received out of order message from exchange {Rook}
-2023-11-04 21:04:30.297340,DEBUG,Received heartbeat from exchange *Rook*
-2023-11-04 21:04:30.297500,DEBUG,Exiting unimportant code area
+,timestamp,status,message,statistics
+0,2023-11-04 21:04:29.875730,DEBUG,Recreating message with new code NEWC-61803,
+1,2023-11-04 21:04:29.875760,INFO,Starting processing of order [additional_info],
+2,2023-11-04 21:04:30.296400,OTHER,"Nature hides her secrets because of her essential loftiness, but not by means of ruse - Einstein, Albert",
+3,2023-11-04 21:04:30.296940,ERROR,Unable to find order ORD-398 sent to exchange (Rook),
+4,2023-11-04 21:04:30.297110,OTHER,"If you give a github repo in your CV make sure to have someone review the code, recruiters will look at the code",
+5,2023-11-04 21:04:30.297200,WARN,Received out of order message from exchange {Rook},
+6,2023-11-04 21:04:30.297340,DEBUG,Received heartbeat from exchange *Rook*,
+7,2023-11-04 21:04:30.297500,DEBUG,Exiting unimportant code area,
