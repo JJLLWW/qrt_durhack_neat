@@ -1,7 +1,7 @@
 import logging
-
 from typing import Optional, Any
-from src.datamodel.log_dir_event import LogDirEvent, EventType
+
+from ..datamodel.log_dir_event import LogDirEvent, EventType
 
 logger = logging.getLogger(__name__)
 
@@ -9,7 +9,6 @@ logger = logging.getLogger(__name__)
 TypeMask = Optional[set[EventType]]
 
 
-# there's probably a library for this, but worth practicing
 class LogEventBus:
     def __init__(self):
         # can't use a set/dict as not all objects are hashable

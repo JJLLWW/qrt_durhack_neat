@@ -5,7 +5,7 @@ import io
 
 import pandas as pd
 
-from src.datamodel.log_file import LogEntry
+from ..datamodel.log_file import LogEntry
 
 logger = logging.getLogger(__name__)
 
@@ -30,7 +30,6 @@ class LogParser:
         timestamp = LogParser._correct_nanos(timestamp)
         return datetime.strptime(timestamp, self.timestamp_format)
 
-    # TODO: check stats entries have the correct dtypes
     # this assumes the only multiline log entries are "exchange order timing..." entries
     @staticmethod
     def parse_statistics(entry: str) -> pd.DataFrame:

@@ -8,7 +8,7 @@ from watchfiles import awatch
 
 from .log_parser import LogParser
 from .log_event_bus import LogEventBus
-from src.datamodel.log_dir_event import LogDirEvent, EventType
+from ..datamodel.log_dir_event import LogDirEvent, EventType
 
 logger = logging.getLogger(__name__)
 

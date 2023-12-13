@@ -2,9 +2,10 @@ import datetime
 
 import pytest
 
-from src.loader.log_parser import *
+from loglib.loader.log_parser import *
 
 
+# surely this can go in a file
 stats_entry = """12-12-2023 16:13:59.47851000 INFO:
 Exchange order message timing output
   Exchange            Order recv nu  X (us)
@@ -34,6 +35,7 @@ Exchange order message timing output
     Knight              add   19793     486
     Knight  additional_info   18624    1303
 """
+
 
 def test_parser_one_line_success():
     log_parser = LogParser()
@@ -72,4 +74,4 @@ def test_check_multiline():
 # for now do nothing
 def test_parse_stats():
     stats = LogParser.parse_statistics(stats_entry)
-    assert stats is None
+    assert stats is not None

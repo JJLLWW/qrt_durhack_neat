@@ -1,9 +1,13 @@
 import asyncio
 import logging
+import sys
 
-from src.loader.log_dir_watcher import LogDirWatcher
-from src.loader.log_event_bus import LogEventBus
-from src.loader.log_manager import OpenLogManager
+print(sys.path)
+
+# this is why there should probably be some global api
+from loglib.loader.log_dir_watcher import LogDirWatcher
+from loglib.loader.log_event_bus import LogEventBus
+from loglib.loader.log_manager import OpenLogManager
 
 
 def setup_logging():

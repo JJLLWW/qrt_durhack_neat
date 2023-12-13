@@ -1,7 +1,5 @@
-from src.datamodel.log_file import LogFile
-from src.loader.log_parser import LogParser
-
-import pandas as pd
+from loglib.datamodel.log_file import LogFile
+from loglib.loader.log_parser import LogParser
 
 
 def test_log_file_single_thread():
