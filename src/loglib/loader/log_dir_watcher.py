@@ -6,11 +6,20 @@ from watchfiles import awatch
 
 from .log_file_watcher import LogFileWatcher
 from .log_event_bus import LogEventBus
-from ..datamodel.log_dir_event import LogEvent, EventType
+from ..datamodel.log_event import LogEvent, EventType
 
 logger = logging.getLogger(__name__)
 
 
+# really? must be a better way
+def _get_file_watcher_cb(file: str, event_bus: LogEventBus):
+    def cb(entry):
+        event = LogEvent(EventType.NEW_ENTRY, file, entry)
+        event_bus.publish(event)
+    return cb
+
+
+# TODO: warn user if being called with no asyncio event loop
 class LogDirWatcher:
     def __init__(self, dir_path: str, event_bus: LogEventBus):
         self.dir_path = dir_path
@@ -25,7 +34,8 @@ class LogDirWatcher:
 
     def _watch_file(self, file: str):
         self.event_bus.publish(LogEvent(EventType.FILE_OPEN, file, None))
-        self.file_watchers[file] = LogFileWatcher(file, self.event_bus)
+        new_entry_cb = _get_file_watcher_cb(file, self.event_bus)
+        self.file_watchers[file] = LogFileWatcher(file, new_entry_cb)
 
     def _unwatch_file(self, file: str, do_pop=True):
         self.file_watchers[file].stop_watch()

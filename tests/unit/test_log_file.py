@@ -1,5 +1,5 @@
 from loglib.datamodel.log_file import LogFile
-from loglib.loader.log_parser import parse_log_entry
+from loglib.loader.entry_parse import parse_log_entry
 
 
 def test_log_file_single_thread():

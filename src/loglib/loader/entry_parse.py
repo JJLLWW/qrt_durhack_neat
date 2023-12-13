@@ -43,9 +43,9 @@ def parse_log_entry(entry: str, line_re: str = _default_line_regex) -> LogEntry:
     match = line_pattern.match(entry)
     stats = None
     if match is None:
-        logger.error(f"parser failed to parse line '{entry}'")
+        logger.error(f"failed to parse line '{entry}'")
         raise ValueError("unable to parse input line")
-    if len(entry.split('\n')) > 1:
+    if len(entry.split('\n')) > 2:
         stats = parse_statistics(entry)
     return LogEntry(
         timestamp=_convert_timestamp(match.group('timestamp')),
@@ -53,3 +53,9 @@ def parse_log_entry(entry: str, line_re: str = _default_line_regex) -> LogEntry:
         message=match.group('message'),
         statistics=stats
     )
+
+
+def is_log_head(line: str, line_re: str = _default_line_regex) -> bool:
+    line_pattern = re.compile(line_re)
+    match = line_pattern.match(line)
+    return match is not None
