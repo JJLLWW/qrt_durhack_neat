@@ -1,11 +1,12 @@
 import logging
 
 from ..datamodel.log_file import LogFile
-from ..datamodel.log_dir_event import LogDirEvent, EventType
+from ..datamodel.log_dir_event import LogEvent, EventType
 
 logger = logging.getLogger(__name__)
 
 
+# should also be able to add logs manually
 class OpenLogManager:
     def __init__(self):
         self.logs: dict[str, LogFile] = {}
@@ -19,7 +20,7 @@ class OpenLogManager:
     def _handle_file_close(self, file: str):
         self.logs.pop(file)
 
-    def handle_log_event(self, event: LogDirEvent):
+    def handle_log_event(self, event: LogEvent):
         match event.type:
             case EventType.NEW_ENTRY:
                 self._handle_new_entry(event.entry, event.file)

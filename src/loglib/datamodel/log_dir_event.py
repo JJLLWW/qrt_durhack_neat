@@ -11,7 +11,7 @@ class EventType(Enum):
 
 
 @dataclass
-class LogDirEvent:
+class LogEvent:
     type: EventType
     file: str
     entry: Optional[LogEntry]

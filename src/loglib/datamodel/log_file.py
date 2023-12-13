@@ -19,4 +19,5 @@ class LogFile:
             self.add_entry(entry)
 
     def get_file_snapshot(self) -> pd.DataFrame:
+        # this won't behave as expected.
         return pd.DataFrame(data=self.log_entries)

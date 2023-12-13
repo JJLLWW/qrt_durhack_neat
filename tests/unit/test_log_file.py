@@ -1,9 +1,8 @@
 from loglib.datamodel.log_file import LogFile
-from loglib.loader.log_parser import LogParser
+from loglib.loader.log_parser import parse_log_entry
 
 
 def test_log_file_single_thread():
-    log_parser = LogParser()
     log_file = LogFile()
     lines = """04-11-2023 21:04:29.87573000 DEBUG: Recreating message with new code NEWC-61803
 04-11-2023 21:04:29.87576000 INFO: Starting processing of order [additional_info]
@@ -13,7 +12,7 @@ def test_log_file_single_thread():
 04-11-2023 21:04:30.29720000 WARN: Received out of order message from exchange {Rook}
 04-11-2023 21:04:30.29734000 DEBUG: Received heartbeat from exchange *Rook*
 04-11-2023 21:04:30.29750000 DEBUG: Exiting unimportant code area"""
-    entries = [log_parser.parse_log_entry(line) for line in lines.split('\n')]
+    entries = [parse_log_entry(line) for line in lines.split('\n')]
     for entry in entries:
         log_file.add_entry(entry)
     file_df = log_file.get_file_snapshot()

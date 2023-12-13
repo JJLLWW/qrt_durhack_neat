@@ -1,7 +1,7 @@
 import logging
 from typing import Optional, Any
 
-from ..datamodel.log_dir_event import LogDirEvent, EventType
+from ..datamodel.log_dir_event import LogEvent, EventType
 
 logger = logging.getLogger(__name__)
 
@@ -31,7 +31,7 @@ class LogEventBus:
         if sub_info is not None:
             self._subscribers.remove(sub_info)
 
-    def publish(self, event: LogDirEvent):
+    def publish(self, event: LogEvent):
         for subscriber, type_mask in self._subscribers:
             if not type_mask or event.type in type_mask:
                 subscriber.handle_log_event(event)
