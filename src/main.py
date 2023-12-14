@@ -6,6 +6,7 @@ from loglib.loader.log_dir_watcher import LogDirWatcher
 from loglib.loader.log_event_bus import LogEventBus
 from loglib.datamodel.log_event import LogEvent, EventType
 from loglib.net.web_socket_client import WSocketEventForwarder
+from loglib.cli.cli_parser import cli_main
 
 
 def setup_logging():
@@ -28,4 +29,5 @@ async def main():
 
 if __name__ == "__main__":
     setup_logging()
-    asyncio.run(main())
+    # asyncio.run(main())
+    asyncio.run(cli_main())

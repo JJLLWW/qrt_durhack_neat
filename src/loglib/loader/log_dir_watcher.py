@@ -12,7 +12,7 @@ logger = logging.getLogger(__name__)
 
 
 # really? must be a better way
-def _get_file_watcher_cb(file: str, event_bus: LogEventBus):
+def get_file_watcher_event_bus_cb(file: str, event_bus: LogEventBus):
     def cb(entry):
         event = LogEvent(EventType.NEW_ENTRY, file, entry)
         event_bus.publish(event)
@@ -34,7 +34,7 @@ class LogDirWatcher:
 
     def _watch_file(self, file: str):
         self.event_bus.publish(LogEvent(EventType.FILE_OPEN, file, None))
-        new_entry_cb = _get_file_watcher_cb(file, self.event_bus)
+        new_entry_cb = get_file_watcher_event_bus_cb(file, self.event_bus)
         self.file_watchers[file] = LogFileWatcher(file, new_entry_cb)
 
     def _unwatch_file(self, file: str, do_pop=True):
