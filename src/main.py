@@ -4,7 +4,8 @@ import logging
 # this is why there should probably be some global api
 from loglib.loader.log_dir_watcher import LogDirWatcher
 from loglib.loader.log_event_bus import LogEventBus
-from loglib.loader.log_manager import OpenLogManager
+from loglib.datamodel.log_event import LogEvent, EventType
+from loglib.net.web_socket_client import WSocketEventForwarder
 
 
 def setup_logging():
@@ -12,13 +13,14 @@ def setup_logging():
 
 
 class EventLogger:
-    def handle_log_event(self, event):
+    def handle_log_event(self, event: LogEvent):
         print(event)
 
 
 async def main():
     log_eb = LogEventBus()
     log_eb.add_subscriber(EventLogger())
+    log_eb.add_subscriber(WSocketEventForwarder())
     log_dir = "./rough/log_dir"
     with LogDirWatcher(log_dir, log_eb) as watcher:
         await asyncio.sleep(200)

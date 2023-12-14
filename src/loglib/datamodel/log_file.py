@@ -1,15 +1,22 @@
 import pandas as pd
-from collections import namedtuple
+from datetime import datetime
+from dataclasses import dataclass
 
-LogEntry = namedtuple(
-    typename="LogEntry",
-    field_names=["timestamp", "status", "message", "statistics"]
-)
 
-LogFileEntry = namedtuple(
-    typename="LogFileEntry",
-    field_names=["timestamp", "status", "message", "stats_id"]
-)
+@dataclass
+class LogEntry:
+    timestamp: datetime
+    status: str
+    message: str
+    statistics: pd.DataFrame
+
+
+@dataclass
+class LogFileEntry:
+    timestamp: datetime
+    status: str
+    message: str
+    stats_id: int
 
 
 # not thread safe
