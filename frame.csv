@@ -1,4 +1,4 @@
-,timestamp,status,message,statistics
+,timestamp,status,message,stats_id
 0,2023-11-04 21:04:29.875730,DEBUG,Recreating message with new code NEWC-61803,
 1,2023-11-04 21:04:29.875760,INFO,Starting processing of order [additional_info],
 2,2023-11-04 21:04:30.296400,OTHER,"Nature hides her secrets because of her essential loftiness, but not by means of ruse - Einstein, Albert",

@@ -7,8 +7,6 @@ import websockets
 _clients = set()
 
 
-# yes it is fine to just wait on a websocket's messages forever, can iterate over
-# them.
 async def conn_handler(websocket: websockets.WebSocketServerProtocol):
     _clients.add(websocket)
     try:

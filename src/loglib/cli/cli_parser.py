@@ -1,3 +1,4 @@
+""" ! PROOF OF CONCEPT ONLY ! """
 import argparse
 import asyncio
 import pathlib
@@ -34,8 +35,7 @@ async def cli_main():
     args = parse_argv()
     event_bus = LogEventBus()
     ws_forwarder = WSocketEventForwarder()
-    # event_bus.add_subscriber(ws_forwarder)
-    event_bus.add_subscriber(EventLogger())
+    event_bus.add_subscriber(ws_forwarder)
     dir_watchers, file_watchers = [], []
     if args.static:
         for path in args.static:
