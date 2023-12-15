@@ -2,5 +2,5 @@
 venv
 src/cli_log
 cli_log
-rough/log_dir
 **/__pycache__
+rough
