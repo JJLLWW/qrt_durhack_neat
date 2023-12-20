@@ -1,8 +1,9 @@
 import logging
-from typing import TextIO, Callable
+from typing import Callable, TextIO
 
+from ..datamodel.log_file import LogEntry, LogFile
 from .log_entry_stream import LogEntryStream
-from ..datamodel.log_file import LogFile, LogEntry
+
 
 logger = logging.getLogger(__name__)
 

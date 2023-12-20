@@ -1,16 +1,17 @@
 """ ! PROOF OF CONCEPT ONLY ! """
 import argparse
 import asyncio
-import pathlib
 import logging
+import pathlib
 from typing import Iterable, Optional
 
 from loglib.datamodel.log_event import LogEvent
-from loglib.loader.static_loader import stream_static_logfile
-from loglib.loader.log_file_watcher import LogFileWatcher
 from loglib.loader.log_dir_watcher import LogDirWatcher, get_file_watcher_event_bus_cb
 from loglib.loader.log_event_bus import LogEventBus
+from loglib.loader.log_file_watcher import LogFileWatcher
+from loglib.loader.static_loader import stream_static_logfile
 from loglib.net.web_socket_client import WSocketEventForwarder
+
 
 logger = logging.getLogger(__name__)
 

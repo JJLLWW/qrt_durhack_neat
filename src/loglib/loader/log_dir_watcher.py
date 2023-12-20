@@ -4,9 +4,10 @@ import logging
 
 from watchfiles import awatch
 
-from .log_file_watcher import LogFileWatcher
+from ..datamodel.log_event import EventType, LogEvent
 from .log_event_bus import LogEventBus
-from ..datamodel.log_event import LogEvent, EventType
+from .log_file_watcher import LogFileWatcher
+
 
 logger = logging.getLogger(__name__)
 

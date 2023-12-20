@@ -1,8 +1,9 @@
 import logging
 from typing import Callable
 
-from .entry_parse import parse_log_entry, is_log_head
 from ..datamodel.log_file import LogEntry
+from .entry_parse import is_log_head, parse_log_entry
+
 
 logger = logging.getLogger(__name__)
 

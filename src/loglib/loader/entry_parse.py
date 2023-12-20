@@ -1,11 +1,12 @@
+import io
+import logging
 import re
 from datetime import datetime
-import logging
-import io
 
 import pandas as pd
 
 from ..datamodel.log_file import LogEntry
+
 
 logger = logging.getLogger(__name__)
 

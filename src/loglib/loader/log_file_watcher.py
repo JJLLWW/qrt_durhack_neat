@@ -7,6 +7,7 @@ import aiofiles
 from ..datamodel.log_file import LogEntry
 from .log_entry_stream import LogEntryStream
 
+
 logger = logging.getLogger(__name__)
 
 
