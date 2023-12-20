@@ -3,4 +3,4 @@ venv
 src/cli_log
 cli_log
 **/__pycache__
-rough
+rough/
