@@ -13,6 +13,6 @@ jobs:
         with:
           python-version: 3.11
       - name: install test dependencies
-        run: pip install -r requirements-dev.txt
+        run: pip install -r requirements-dev.txt && pip install .
       - name: run tests
         run: make tests
