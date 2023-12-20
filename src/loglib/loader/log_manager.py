@@ -6,7 +6,7 @@ from ..datamodel import EventType, LogEvent, LogFile
 logger = logging.getLogger(__name__)
 
 
-# should also be able to add logs manually
+# TODO: should also be able to add logs manually
 class OpenLogManager:
     def __init__(self):
         self.logs: dict[str, LogFile] = {}

@@ -15,5 +15,3 @@ def test_log_file_single_thread():
     entries = [parse_log_entry(line) for line in lines.split("\n")]
     for entry in entries:
         log_file.add_entry(entry)
-    file_df = log_file.get_file_snapshot()
-    file_df.to_csv("frame.csv")  # this stores the index in the csv as well,
