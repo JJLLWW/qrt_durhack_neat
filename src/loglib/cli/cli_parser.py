@@ -16,7 +16,6 @@ from loglib.net.web_socket_client import WSocketEventForwarder
 logger = logging.getLogger(__name__)
 
 
-# can hook into type with some function doing validation, then raise a ValueError etc.
 cli_parser = argparse.ArgumentParser()
 s_help = "statically load these log files"
 w_help = "watch this log file in real time"
@@ -34,7 +33,7 @@ cli_parser.add_argument(
 
 # DEBUG ONLY
 class EventLogger:
-    def handle_log_event(self, event: LogEvent):
+    def handle_log_event(self, event: LogEvent):  # noqa:
         print(event)
 
 

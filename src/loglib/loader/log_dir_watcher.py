@@ -4,7 +4,7 @@ import logging
 
 from watchfiles import awatch
 
-from ..datamodel.log_event import EventType, LogEvent
+from ..datamodel import EventType, LogEvent
 from .log_event_bus import LogEventBus
 from .log_file_watcher import LogFileWatcher
 

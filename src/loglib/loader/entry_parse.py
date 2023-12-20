@@ -5,7 +5,7 @@ from datetime import datetime
 
 import pandas as pd
 
-from ..datamodel.log_file import LogEntry
+from ..datamodel import LogEntry
 
 
 logger = logging.getLogger(__name__)

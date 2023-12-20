@@ -4,7 +4,7 @@ from typing import Callable
 
 import aiofiles
 
-from ..datamodel.log_file import LogEntry
+from ..datamodel import LogEntry
 from .log_entry_stream import LogEntryStream
 
 

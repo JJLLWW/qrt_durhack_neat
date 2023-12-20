@@ -1,7 +1,7 @@
 import logging
 from typing import Any, Optional
 
-from ..datamodel.log_event import EventType, LogEvent
+from ..datamodel import EventType, LogEvent
 
 
 logger = logging.getLogger(__name__)

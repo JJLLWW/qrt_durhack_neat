@@ -1,7 +1,7 @@
 import logging
 from typing import Callable, TextIO
 
-from ..datamodel.log_file import LogEntry, LogFile
+from ..datamodel import LogEntry, LogFile
 from .log_entry_stream import LogEntryStream
 
 

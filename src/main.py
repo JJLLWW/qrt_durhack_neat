@@ -2,9 +2,7 @@ import asyncio
 import logging
 
 from loglib.cli.cli_parser import cli_main
-from loglib.datamodel.log_event import LogEvent
-
-# this is why there should probably be some global api
+from loglib.datamodel import LogEvent
 from loglib.loader.log_dir_watcher import LogDirWatcher
 from loglib.loader.log_event_bus import LogEventBus
 from loglib.net.web_socket_client import WSocketEventForwarder
