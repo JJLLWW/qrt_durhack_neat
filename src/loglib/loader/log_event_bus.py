@@ -22,7 +22,9 @@ class LogEventBus:
 
     def add_subscriber(self, subscriber, type_mask: TypeMask = None):
         if not hasattr(subscriber, "handle_log_event"):
-            raise TypeError("subscriber must have handle_log_event(self, event) method.")
+            raise TypeError(
+                "subscriber must have handle_log_event(self, event) method."
+            )
         if self._get_subscriber_info(subscriber) is None:
             self._subscribers.append((subscriber, type_mask))
 

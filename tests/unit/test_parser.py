@@ -40,22 +40,28 @@ Exchange order message timing output
 def test_parser_one_line_success():
     inputs = [
         "04-11-2023 12:36:15.739592000 DEBUG: Hello World\n",
-        "04-11-2023 12:36:16.542765000 INFO: a\n"
+        "04-11-2023 12:36:16.542765000 INFO: a\n",
     ]
     expected = [
-        LogEntry(timestamp=datetime(2023, 11, 4, 12, 36, 15, 739592), status="DEBUG", message="Hello World\n", statistics=None),
-        LogEntry(timestamp=datetime(2023, 11, 4, 12, 36, 16, 542765), status="INFO", message="a\n", statistics=None)
+        LogEntry(
+            timestamp=datetime(2023, 11, 4, 12, 36, 15, 739592),
+            status="DEBUG",
+            message="Hello World\n",
+            statistics=None,
+        ),
+        LogEntry(
+            timestamp=datetime(2023, 11, 4, 12, 36, 16, 542765),
+            status="INFO",
+            message="a\n",
+            statistics=None,
+        ),
     ]
     actual = [parse_log_entry(line) for line in inputs]
     assert actual == expected
 
 
 def test_parser_failure_1():
-    inputs = [
-        "nonsense",
-        "04-13-2023 12:36:16.542765000 INFO: Bad Date",
-        ""
-    ]
+    inputs = ["nonsense", "04-13-2023 12:36:16.542765000 INFO: Bad Date", ""]
     for line in inputs:
         with pytest.raises(Exception) as e_info:
             parse_log_entry(line)

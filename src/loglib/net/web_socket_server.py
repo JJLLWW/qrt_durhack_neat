@@ -1,6 +1,5 @@
 """ ! PROOF OF CONCEPT ONLY ! """
 import asyncio
-import logging
 
 import websockets
 

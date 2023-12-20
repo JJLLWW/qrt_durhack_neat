@@ -14,7 +14,7 @@ logger = logging.getLogger(__name__)
 async def _get_file_entries(file: str, entry_cb: Callable[[LogEntry], None]):
     stream = LogEntryStream()
     stream.register_callback(entry_cb)
-    async with aiofiles.open(file, mode='r') as f:
+    async with aiofiles.open(file, mode="r") as f:
         while True:
             line = await f.readline()
             if line:
@@ -29,7 +29,9 @@ class LogFileWatcher:
     def __init__(self, file: str, entry_cb: Callable[[LogEntry], None]):
         self.file: str = file
         logger.debug(f"watching file {file}")
-        self.watch_task: asyncio.Task = asyncio.create_task(_get_file_entries(file,entry_cb))
+        self.watch_task: asyncio.Task = asyncio.create_task(
+            _get_file_entries(file, entry_cb)
+        )
 
     def stop_watch(self):
         logger.debug(f"unwatching file {self.file}")

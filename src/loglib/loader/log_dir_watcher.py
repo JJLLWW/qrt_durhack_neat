@@ -16,6 +16,7 @@ def get_file_watcher_event_bus_cb(file: str, event_bus: LogEventBus):
     def cb(entry):
         event = LogEvent(EventType.NEW_ENTRY, file, entry)
         event_bus.publish(event)
+
     return cb
 
 

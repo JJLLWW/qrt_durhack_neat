@@ -12,8 +12,8 @@ def test_log_file_single_thread():
 04-11-2023 21:04:30.29720000 WARN: Received out of order message from exchange {Rook}
 04-11-2023 21:04:30.29734000 DEBUG: Received heartbeat from exchange *Rook*
 04-11-2023 21:04:30.29750000 DEBUG: Exiting unimportant code area"""
-    entries = [parse_log_entry(line) for line in lines.split('\n')]
+    entries = [parse_log_entry(line) for line in lines.split("\n")]
     for entry in entries:
         log_file.add_entry(entry)
     file_df = log_file.get_file_snapshot()
-    file_df.to_csv("frame.csv") # this stores the index in the csv as well,
+    file_df.to_csv("frame.csv")  # this stores the index in the csv as well,

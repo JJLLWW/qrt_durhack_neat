@@ -18,8 +18,8 @@ class LogEntryStream:
             cb(entry)
 
     def add_line(self, line: str):
-        if not line.endswith('\n'):
-            line += '\n'
+        if not line.endswith("\n"):
+            line += "\n"
         if is_log_head(line) and self.entry_lines != "":
             entry = parse_log_entry(self.entry_lines)
             self.entry_lines = line

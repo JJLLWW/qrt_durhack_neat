@@ -20,9 +20,15 @@ cli_parser = argparse.ArgumentParser()
 s_help = "statically load these log files"
 w_help = "watch this log file in real time"
 d_help = "watch this directory for changes to log files within it"
-cli_parser.add_argument('-s', '--static', nargs='+', metavar='LOGFILE', type=pathlib.Path, help=s_help)
-cli_parser.add_argument('-f', '--file-watch', nargs='+', metavar='LOGFILE', type=pathlib.Path, help=w_help)
-cli_parser.add_argument('-d', '--dir-watch', nargs='+', metavar='DIRECTORY', type=pathlib.Path, help=d_help)
+cli_parser.add_argument(
+    "-s", "--static", nargs="+", metavar="LOGFILE", type=pathlib.Path, help=s_help
+)
+cli_parser.add_argument(
+    "-f", "--file-watch", nargs="+", metavar="LOGFILE", type=pathlib.Path, help=w_help
+)
+cli_parser.add_argument(
+    "-d", "--dir-watch", nargs="+", metavar="DIRECTORY", type=pathlib.Path, help=d_help
+)
 
 
 # DEBUG ONLY
