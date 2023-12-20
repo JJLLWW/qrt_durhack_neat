@@ -25,7 +25,6 @@ async def _get_file_entries(file: str, entry_cb: Callable[[LogEntry], None]):
 
 
 # - this will not notice if the underlying file is deleted on its own.
-# TODO: warn user if being called with no asyncio event loop
 class LogFileWatcher:
     def __init__(self, file: str, entry_cb: Callable[[LogEntry], None]):
         self.file: str = file

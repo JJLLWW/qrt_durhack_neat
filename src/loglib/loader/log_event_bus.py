@@ -12,7 +12,6 @@ TypeMask = Optional[set[EventType]]
 
 class LogEventBus:
     def __init__(self):
-        # can't use a set/dict as not all objects are hashable
         self._subscribers: list[tuple[Any, TypeMask]] = []
 
     def _get_subscriber_info(self, subscriber):

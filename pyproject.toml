@@ -1,3 +1,46 @@
+[project]
+name = "test"
+dependencies = [
+    "aiofiles==23.2.1",
+    "anyio==4.2.0",
+    "art==6.1",
+    "exceptiongroup==1.1.3",
+    "idna==3.6",
+    "iniconfig==2.0.0",
+    "numpy==1.26.1",
+    "packaging==23.2",
+    "pandas==2.1.2",
+    "python-dateutil==2.8.2",
+    "pytz==2023.3.post1",
+    "six==1.16.0",
+    "sniffio==1.3.0",
+    "tomli==2.0.1",
+    "tzdata==2023.3",
+    "watchfiles==0.21.0",
+    "websockets==12.0"
+]
+description = "See If Possible To Build Wheel"
+requires-python = ">=3.8"
+license = { text = "BSD-3-Clause" }
+authors = [
+    { name = "Foo Bar", email = "foo.bar@gmail.com" },
+]
+keywords = ["Test"]
+classifiers = [
+    "Development Status :: DO NOT USE",
+    "Intended Audience :: Developers",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+]
+version = "0.0.1"
+#dynamic = ["version", "readme"]
+
 [tool.pytest.ini_options]
 pythonpath = [
   ".", "src",
@@ -9,3 +52,10 @@ select = ["E4", "E7", "E9", "F", "I"]
 [tool.ruff.isort]
 combine-as-imports = true
 lines-after-imports = 2
+
+[tool.coverage.run]
+branch = true
+omit = [
+  "*/__init__.py",
+  "src/main.py"
+]

@@ -8,7 +8,6 @@ from .entry_parse import is_log_head, parse_log_entry
 logger = logging.getLogger(__name__)
 
 
-# error handling?
 class LogEntryStream:
     def __init__(self):
         self.entry_lines = ""
