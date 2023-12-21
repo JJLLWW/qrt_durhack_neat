@@ -1,5 +1,5 @@
 [project]
-name = "test"
+name = "test-pypi-upload-with-wheel"
 dependencies = [
     "aiofiles==23.2.1",
     "anyio==4.2.0",
@@ -27,7 +27,7 @@ authors = [
 ]
 keywords = ["Test"]
 classifiers = [
-    "Development Status :: DO NOT USE",
+    "Development Status :: 1 - Planning",
     "Intended Audience :: Developers",
     "Operating System :: OS Independent",
     "Programming Language :: Python",

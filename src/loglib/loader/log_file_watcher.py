@@ -26,6 +26,12 @@ async def _get_file_entries(file: str, entry_cb: Callable[[LogEntry], None]):
 
 # - this will not notice if the underlying file is deleted on its own.
 class LogFileWatcher:
+    """
+    Watch for entries being appended to a log file in real time.
+
+    :param file: path to the file to watch
+    :param entry_cb: callback function to process each log entry as it arrives
+    """
     def __init__(self, file: str, entry_cb: Callable[[LogEntry], None]):
         self.file: str = file
         logger.debug(f"watching file {file}")
@@ -34,6 +40,7 @@ class LogFileWatcher:
         )
 
     def stop_watch(self):
+        """ Stop watching the file for changes """
         logger.debug(f"unwatching file {self.file}")
         self.watch_task.cancel()
 

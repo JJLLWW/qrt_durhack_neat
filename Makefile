@@ -10,3 +10,6 @@ coverage:
 
 wheel:
 	pip wheel --no-deps .
+
+upload:
+	twine upload -r testpypi test_pypi_upload_with_wheel-0.0.1-py3-none-any.whl

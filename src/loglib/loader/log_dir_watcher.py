@@ -21,8 +21,14 @@ def get_file_watcher_event_bus_cb(file: str, event_bus: LogEventBus):
     return cb
 
 
-# TODO: warn user if being called with no asyncio event loop
 class LogDirWatcher:
+    """
+    Watch all log files present and created in a directory, monitoring for
+    new entries.
+
+    :param dir_path: path to the directory to watch
+    :param event_bus: publish all new log entries to this bus
+    """
     def __init__(self, dir_path: str, event_bus: LogEventBus):
         self.dir_path = dir_path
         self.event_bus = event_bus
