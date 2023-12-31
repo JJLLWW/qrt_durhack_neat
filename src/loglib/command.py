@@ -5,7 +5,7 @@ from .log_dir_watcher import LogDirWatcher
 
 
 class Command:
-    async def execute(self, queue: asyncio.Queue):
+    async def execute(self, queue: asyncio.Queue, stop: asyncio.Event):
         raise NotImplementedError("execute not implemented")
 
 
@@ -13,19 +13,20 @@ class StaticFileCommand(Command):
     def __init__(self, file_paths: list[str]):
         self.file_paths = file_paths
 
-    async def execute(self, queue: asyncio.Queue):
+    async def execute(self, queue: asyncio.Queue, stop: asyncio.Event):
         barrier = asyncio.Barrier(len(self.file_paths) + 1)
         readers = []
         for file_path in self.file_paths:
             readers.append(FileReader(file_path, queue, watch=False, barrier=barrier))
         await barrier.wait()
+        stop.set()
 
 
 class DirWatchCommand(Command):
     def __init__(self, dir_paths: list[str]):
         self.dir_paths = dir_paths
 
-    async def execute(self, queue: asyncio.Queue):
+    async def execute(self, queue: asyncio.Queue, stop: asyncio.Event):
         watchers = []
         for dir_path in self.dir_paths:
             watchers.append(LogDirWatcher(dir_path, queue))
@@ -36,7 +37,7 @@ class FileWatchCommand(Command):
     def __init__(self, file_paths: list[str]):
         self.file_paths = file_paths
 
-    async def execute(self, queue: asyncio.Queue):
+    async def execute(self, queue: asyncio.Queue, stop: asyncio.Event):
         readers = []
         for file_path in self.file_paths:
             readers.append(FileReader(file_path, queue, watch=True))

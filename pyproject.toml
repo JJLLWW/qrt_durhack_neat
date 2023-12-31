@@ -12,10 +12,6 @@ classifiers = [
     "Intended Audience :: Developers",
     "Operating System :: OS Independent",
     "Programming Language :: Python",
-    "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3.8",
-    "Programming Language :: Python :: 3.9",
-    "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
 ]
@@ -31,10 +27,11 @@ packages = [{include = "loglib", from = "src"}]
 
 # pin the dependencies to avoid nightmares with later versions
 [tool.poetry.dependencies]
-python = "^3.9"
+python = "^3.11"
 aiofiles = "23.2.1"
 watchfiles = "0.21.0"
 pandas = "2.1.2"
+aio-pika = "9.3.1"
 
 [tool.poetry.group.test]
 optional = true

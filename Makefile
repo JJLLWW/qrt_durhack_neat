@@ -19,3 +19,6 @@ rm_deps:
 
 poetry_install_all:
 	poetry install --no-root -with=test,dev
+
+rmq:
+	docker compose up
