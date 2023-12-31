@@ -1,11 +1,9 @@
 import argparse
-import asyncio
 import logging
 import pathlib
 from typing import Iterable, Optional
 
-from .file_reader import FileReader
-from .log_dir_watcher import LogDirWatcher
+from .command import *
 
 
 logger = logging.getLogger(__name__)
@@ -28,24 +26,14 @@ group.add_argument(
 )
 
 
-async def cli_main(queue: asyncio.Queue, stop_cli: asyncio.Event):
+def cli_main() -> Command:
     args = parse_argv()
-    dir_watchers, file_watchers = [], []
     if args.static:
-        barrier = asyncio.Barrier(len(args.static) + 1)
-        for path in args.static:
-            file = str(path)
-            file_watchers.append(FileReader(file, queue, watch=False, barrier=barrier))
-        await barrier.wait()
-        stop_cli.set()
+        return StaticFileCommand(file_paths=[str(path) for path in args.static])
     elif args.file_watch:
-        for path in args.file_watch:
-            file = str(path)
-            file_watchers.append(FileReader(file, queue, watch=True))
+        return FileWatchCommand(file_paths=[str(path) for path in args.file_watch])
     elif args.dir_watch:
-        for path in args.dir_watch:
-            dir_watcher = LogDirWatcher(str(path), queue)
-            dir_watchers.append(dir_watcher)
+        return DirWatchCommand(dir_paths=[str(path) for path in args.dir_watch])
 
 
 def parse_argv():

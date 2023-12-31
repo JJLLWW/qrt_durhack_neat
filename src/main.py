@@ -9,12 +9,9 @@ def setup_logging():
 
 
 async def main():
+    cmd = cli_main()
     queue = asyncio.Queue()
-    stop_cli = asyncio.Event()
-    await cli_main(queue, stop_cli)
-    while not stop_cli.is_set() or not queue.empty():
-        entry = await queue.get()
-        print(entry)
+    await cmd.execute(queue)
 
 
 if __name__ == "__main__":
