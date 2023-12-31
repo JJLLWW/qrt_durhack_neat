@@ -5,7 +5,7 @@ from datetime import datetime
 
 import pandas as pd
 
-from ..datamodel import LogEntry
+from loglib.typing import LogEntry
 
 
 logger = logging.getLogger(__name__)
@@ -54,7 +54,8 @@ def parse_log_entry(entry: str, line_re: str = _default_line_regex) -> LogEntry:
         timestamp=_convert_timestamp(match.group("timestamp")),
         status=match.group("status").strip(":"),
         message=match.group("message"),
-        statistics=stats,
+        stats=stats,
+        info=None
     )
 
 

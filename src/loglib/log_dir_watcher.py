@@ -4,21 +4,10 @@ import logging
 
 from watchfiles import awatch
 
-from ..datamodel import EventType, LogEvent
-from .log_event_bus import LogEventBus
-from .log_file_watcher import LogFileWatcher
+from loglib.file_reader import FileReader
 
 
 logger = logging.getLogger(__name__)
-
-
-# really? must be a better way
-def get_file_watcher_event_bus_cb(file: str, event_bus: LogEventBus):
-    def cb(entry):
-        event = LogEvent(EventType.NEW_ENTRY, file, entry)
-        event_bus.publish(event)
-
-    return cb
 
 
 class LogDirWatcher:
@@ -27,12 +16,12 @@ class LogDirWatcher:
     new entries.
 
     :param dir_path: path to the directory to watch
-    :param event_bus: publish all new log entries to this bus
+    :param queue: publish all new log entries to this queue
     """
-    def __init__(self, dir_path: str, event_bus: LogEventBus):
+    def __init__(self, dir_path: str, queue: asyncio.Queue):
         self.dir_path = dir_path
-        self.event_bus = event_bus
-        self.file_watchers: dict[str, LogFileWatcher] = {}
+        self.queue = queue
+        self.file_readers: dict[str, FileReader] = {}
         self.watch_task = None
 
     def _watch_existing_logs(self):
@@ -41,15 +30,12 @@ class LogDirWatcher:
             self._watch_file(log)
 
     def _watch_file(self, file: str):
-        self.event_bus.publish(LogEvent(EventType.FILE_OPEN, file, None))
-        new_entry_cb = get_file_watcher_event_bus_cb(file, self.event_bus)
-        self.file_watchers[file] = LogFileWatcher(file, new_entry_cb)
+        self.file_readers[file] = FileReader(file, self.queue)
 
     def _unwatch_file(self, file: str, do_pop=True):
-        self.file_watchers[file].stop_watch()
+        self.file_readers[file].stop_read()
         if do_pop:
-            self.file_watchers.pop(file)
-        self.event_bus.publish(LogEvent(EventType.FILE_CLOSE, file, None))
+            self.file_readers.pop(file)
 
     def _handle_dir_changes(self, changes):
         for change, file in changes:
@@ -57,7 +43,7 @@ class LogDirWatcher:
                 case change.added:
                     self._watch_file(file)
                 case change.deleted:
-                    if file in self.file_watchers:
+                    if file in self.file_readers:
                         self._unwatch_file(file)
 
     async def _watch_loop(self):
@@ -73,7 +59,7 @@ class LogDirWatcher:
         logger.debug(f"stopping watch on directory {self.dir_path}")
         if self.watch_task:
             self.watch_task.cancel()
-        for file in self.file_watchers.keys():
+        for file in self.file_readers.keys():
             self._unwatch_file(file, do_pop=False)
 
     def __enter__(self):
