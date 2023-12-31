@@ -10,8 +10,9 @@ def setup_logging():
 
 async def main():
     queue = asyncio.Queue()
-    await cli_main(queue)
-    while True:
+    stop_cli = asyncio.Event()
+    await cli_main(queue, stop_cli)
+    while not stop_cli.is_set() or not queue.empty():
         entry = await queue.get()
         print(entry)
 
