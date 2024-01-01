@@ -32,6 +32,7 @@ aiofiles = "23.2.1"
 watchfiles = "0.21.0"
 pandas = "2.1.2"
 aio-pika = "9.3.1"
+fastapi = "^0.108.0"
 
 [tool.poetry.group.test]
 optional = true
@@ -45,6 +46,7 @@ optional = true
 
 [tool.poetry.group.dev.dependencies]
 ruff = "^0.1.9"
+uvicorn = {extras = ["standard"], version = "^0.25.0"}
 
 [build-system]
 requires = ["poetry-core"]

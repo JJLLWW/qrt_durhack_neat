@@ -22,3 +22,6 @@ poetry_install_all:
 
 rmq:
 	docker compose up
+
+server:
+	uvicorn src.server:app --reload
