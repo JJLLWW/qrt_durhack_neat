@@ -1,9 +1,9 @@
 from os import getenv
 
 import aio_pika
-from loglib.json_serialise import decode_log_entry
+from loglib.typing import LogEntry
 
-from .model import LogFileManager
+from .file_manager import LogFileManager
 
 
 def get_rmq_url() -> str:
@@ -27,5 +27,5 @@ async def rmq_consumer(file_manager: LogFileManager, connection) -> None:
     async with queue.iterator() as queue_iter:
         async for message in queue_iter:
             async with message.process():
-                entry = decode_log_entry(message.body.decode('utf-8'))
+                entry = LogEntry.model_validate_json(message.body.decode('utf-8'))
                 file_manager.route_entry(entry)

@@ -1,11 +1,8 @@
-import io
 import logging
 import re
 from datetime import datetime
 
-import pandas as pd
-
-from loglib.typing import LogEntry
+from loglib.typing import ExchangeStats, LogEntry, LogEntryData
 
 
 logger = logging.getLogger(__name__)
@@ -31,30 +28,32 @@ def _convert_timestamp(
 
 
 # this assumes the only multiline log entries are "exchange order timing..." entries
-def parse_statistics(entry: str) -> pd.DataFrame:
-    stat_lines = entry.split("\n")[2:-1]
-    stat_lines[0] = stat_lines[0].replace("recv nu", "recv_nu")
-    stat_lines[0] = stat_lines[0].replace("X (us)", "X")
-    stat_lines = [line.lstrip() for line in stat_lines]
-    stats_chunk = "\n".join(stat_lines)
-    stats_df = pd.read_csv(io.StringIO(stats_chunk), sep=r"\s+")
-    return stats_df
+def parse_statistics(entry: str) -> list[ExchangeStats]:
+    stats = []
+    for line in entry.split('\n')[3:-2]:
+        columns = line.lstrip().split()
+        next_stat = ExchangeStats(exchange=columns[0], order=columns[1], recv_nu=int(columns[2]), X=int(columns[3]))
+        stats.append(next_stat)
+    return stats  # TODO: DOESN'T WORK PROPERLY WITH PYDANTIC
 
 
 def parse_log_entry(entry: str, line_re: str = _default_line_regex) -> LogEntry:
     line_pattern = re.compile(line_re, re.MULTILINE | re.DOTALL)
     match = line_pattern.match(entry)
-    stats = None
+    stats = []
     if match is None:
         logger.error(f"failed to parse line '{entry}'")
         raise ValueError("unable to parse input line")
     if len(entry.split("\n")) > 2:
         stats = parse_statistics(entry)
-    return LogEntry(
+    data = LogEntryData(
         timestamp=_convert_timestamp(match.group("timestamp")),
         status=match.group("status").strip(":"),
         message=match.group("message"),
-        stats=stats,
+        stats=stats
+    )
+    return LogEntry(
+        data=data,
         info=None
     )
 

@@ -1,8 +1,8 @@
 from datetime import datetime
 
 import pytest
-from loglib.entry_parse import parse_log_entry
-from loglib.typing import LogEntry
+from loglib.entry_parse import parse_log_entry, parse_statistics
+from loglib.typing import LogEntry, LogEntryData
 
 
 # surely this can go in a file
@@ -44,17 +44,21 @@ def test_parser_one_line_success():
     ]
     expected = [
         LogEntry(
-            timestamp=datetime(2023, 11, 4, 12, 36, 15, 739592),
-            status="DEBUG",
-            message="Hello World\n",
-            stats=None,
+            data=LogEntryData(
+                timestamp=datetime(2023, 11, 4, 12, 36, 15, 739592),
+                status="DEBUG",
+                message="Hello World\n",
+                stats=[]
+            ),
             info=None
         ),
         LogEntry(
-            timestamp=datetime(2023, 11, 4, 12, 36, 16, 542765),
-            status="INFO",
-            message="a\n",
-            stats=None,
+            data=LogEntryData(
+                timestamp=datetime(2023, 11, 4, 12, 36, 16, 542765),
+                status="INFO",
+                message="a\n",
+                stats=[]
+            ),
             info=None
         ),
     ]
@@ -73,10 +77,11 @@ def test_check_multiline():
     msg = "this\n is\n multiline\n"
     line = f"04-11-2023 12:36:15.739592000 DEBUG: {msg}"
     val = parse_log_entry(line)
-    assert val.message == msg
+    assert val.data.message == msg
 
 
 # for now do nothing
-# def test_parse_stats():
-#     stats = parse_statistics(stats_entry)
-#     assert stats is not None
+def test_parse_stats():
+    stats = parse_statistics(stats_entry)
+    print(stats)
+    assert stats is not None

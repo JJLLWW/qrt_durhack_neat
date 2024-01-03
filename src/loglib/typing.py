@@ -1,21 +1,37 @@
-from dataclasses import dataclass
 from datetime import datetime
 from typing import Optional
 from uuid import UUID
 
-import pandas as pd
+from pydantic import BaseModel
 
 
-@dataclass
-class SourceInfo:
+class ExchangeStats(BaseModel):
+    exchange: str
+    order: str
+    recv_nu: int
+    X: int
+
+
+class SourceInfo(BaseModel):
     name: str
     uuid: UUID
 
 
-@dataclass
-class LogEntry:
+class LogEntryData(BaseModel):
     timestamp: datetime
     status: str
     message: str
-    stats: Optional[pd.DataFrame]
-    info: Optional[SourceInfo]
+    stats: list[ExchangeStats] = []
+
+
+class LogEntry(BaseModel):
+    data: LogEntryData
+    info: Optional[SourceInfo] = None
+
+
+class LogFile(BaseModel):
+    info: SourceInfo
+    entries: list[LogEntryData] = []
+
+    def add_entry(self, entry: LogEntry):
+        self.entries.append(entry.data)

@@ -2,7 +2,7 @@ import asyncio
 
 import aio_pika
 
-from .json_serialise import encode
+from .typing import LogEntry
 
 
 async def create_connection():
@@ -19,8 +19,8 @@ async def connection_loop(
     async with connection:
         channel = await connection.channel()
         while not stop.is_set() or not queue.empty():
-            entry = await queue.get()
-            as_json: str = encode(entry)
+            entry: LogEntry = await queue.get()
+            as_json: str = entry.model_dump_json()
             await channel.default_exchange.publish(
                 aio_pika.Message(body=as_json.encode()),
                 routing_key=routing_key,
